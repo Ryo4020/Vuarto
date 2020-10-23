@@ -1,4 +1,4 @@
-# vue-sinorto
+# vue-quarto
 
 ## Project setup
 ```
