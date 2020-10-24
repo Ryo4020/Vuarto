@@ -1,6 +1,8 @@
 <template>
   <div class="box">
-      <div class="circle" @click="selectCircle">
+      <div v-if="access && situation === -1" class="circle" @click="selectCircle"></div>
+      <div v-else-if="access" class="circle"></div>
+      <div v-else class="circle">
           <div :class="getPieceClass">
             {{ getPieceDisplay }}
           </div>
@@ -19,17 +21,26 @@ export default {
             getPieceClass: "",
             getPieceDisplay: "",
             pieceList: PIECE_LIST,
+            access: true,
         };
+    },
+    watch: {
+      situation() {
+          if (this.situation === 0) {
+              this.getPieceClass = "";
+              this.getPieceDisplay = "";
+              this.access = true;
+          }
+      }
     },
     methods: {
         selectCircle() {
-          if (this.situation === -1) {
-              this.getPieceClass = [this.pieceList[this.i - 1].color,
-                                    this.pieceList[this.i - 1].shape,
-                                    'piece'];
-              this.getPieceDisplay = this.pieceList[this.i - 1].display;
-              this.$emit("click-event", this.circleId, this.pieceList[this.i - 1]);
-          }
+            this.access = !this.access;
+            this.getPieceClass = [this.pieceList[this.i - 1].color,
+                                  this.pieceList[this.i - 1].shape,
+                                  'piece'];
+            this.getPieceDisplay = this.pieceList[this.i - 1].display;
+            this.$emit("click-event", this.circleId, this.pieceList[this.i - 1]);
         },
     },
 };

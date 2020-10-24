@@ -26,6 +26,10 @@ export default {
     watch: {
       situation() {
         switch(this.situation) {
+          case 0:
+            this.used = false;
+            this.usedPotionId = null;
+            break;
           case 1:
             if (this.usedPotionId === this.i) {
               this.used = !this.used;

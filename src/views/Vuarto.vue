@@ -20,6 +20,9 @@
       <button v-else-if="gameSituation === 1" @click="enterPiece">
         ENTER
       </button>
+      <button v-else-if="gameSituation === 2" @click="resetGame">
+        RESET
+      </button>
       <button v-else>
         ENTER
       </button>
@@ -47,8 +50,8 @@
             v-for="n in 4"
             :key="n"
             :i="n + 4 * (m - 1)"
-            :situation="gameSituation"
             :selectedPiece="pieceId"
+            :situation="gameSituation"
             @click-event="selectPiece"
           />
         </div>
@@ -88,7 +91,7 @@ export default {
       ],
 
       message: "STARTを押すとゲームが開始されます",
-      gameSituation: 0,
+      gameSituation: 0,//０が初期、１がコマ、−１がマス、２が終了時
       pieceId: null,
       lastCircle: null,
       boardData: ["", "", "", "",],
@@ -111,7 +114,7 @@ export default {
       for (let i in this.playerList) {
         this.playerList[i].turn = !this.playerList[i].turn;
       }
-      this.gameSituation = this.gameSituation * -1;
+      this.gameSituation = -1;
       if (this.playerList[0].turn) {
         this.message = this.playerList[0].name + "さんは置くマスを選んでください";
       } else {
@@ -125,7 +128,7 @@ export default {
       this.lastCircle = key;
       this.setBoardData(key, piece);
       // console.log(this.boardData);
-      this.gameSituation = this.gameSituation * -1;
+      this.gameSituation = 1;
       this.pieceId = null;
       if (this.playerList[0].turn) {
         this.message = this.playerList[0].name + "さんは渡すコマを選んでください";
@@ -146,16 +149,24 @@ export default {
     async gameSet() {
       let now = this.playerList.findIndex(({ turn }) => turn === true);
       let enemy = now === 0 ? 1 : 0;
+      this.gameSituation = 2;
       if (await this.judge()) {
-          this.gameSituation = 2;
           this.message = this.playerList[now].name + "さんの勝利です";
       } else {
-          this.gameSituation = 2;
           this.message = this.playerList[enemy].name + "さんの勝利です";
           for (let i in this.playerList) {
             this.playerList[i].turn = !this.playerList[i].turn;
           }
       }
+    },
+    resetGame () {
+      this.gameSituation = 0;
+      this.message = "STARTを押すとゲームが開始されます";
+      for (let i in this.playerList) {
+        this.playerList[i].turn = false;
+      }
+      this.pieceId = null;
+      this.lastCircle = null;
     },
     async createBoardData() {
       for (let x in this.boardData) {
