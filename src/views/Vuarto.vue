@@ -287,8 +287,10 @@ button {
   width: 360px;
   height: 360px;
   background: rgba(233, 171, 55, 0.5);
-  border: 1px solid black;
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.5);
+  // border: 1px solid black;
+  border-right: 8px solid rgba(77, 61, 11, 0.6);
+  border-bottom: 8px solid rgba(77, 61, 11, 0.6);
+  border-radius: 8px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -304,9 +306,9 @@ button {
     background: rgb(240, 240, 240);
     display: flex;
     justify-content: space-around;
-    align-items: flex-end;
+    align-items: center;
     flex-wrap: wrap;
-    border-bottom: 8px solid rgb(151, 151, 151);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     margin-top: 16px;
     padding: 2px;
