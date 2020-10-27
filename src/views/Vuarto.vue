@@ -3,33 +3,49 @@
     <div class="title">Vuarto</div>
     <div class="header">
       <div class="player left">
-        <TextField :name="playerList[0].name" :id="playerList[0].id" @change-value="changeName" />
-        <div class="turn-lamp" :class="playerList[0].turn ? `on` : `off`">V</div>
+        <TextField
+          :name="playerList[0].name"
+          :id="playerList[0].id"
+          @change-value="changeName"
+        />
+        <div class="turn-lamp" :class="playerList[0].turn ? `on` : `off`">
+          V
+        </div>
       </div>
       <div class="player right">
-        <div class="turn-lamp" :class="playerList[1].turn ? `on` : `off`">S</div>
-        <TextField :name="playerList[1].name" :id="playerList[1].id" @change-value="changeName" />
+        <div class="turn-lamp" :class="playerList[1].turn ? `on` : `off`">
+          S
+        </div>
+        <TextField
+          :name="playerList[1].name"
+          :id="playerList[1].id"
+          @change-value="changeName"
+        />
       </div>
     </div>
     <div class="message">{{ message }}</div>
     <div class="center">
       <button v-if="gameSituation === 0" @click="gameStart">START</button>
-      <button v-else-if="gameSituation === 1 && pieceId === null" class="transparent" @click="missPiece">
+      <button
+        v-else-if="gameSituation === 1 && pieceId === null"
+        class="transparent"
+        @click="missPiece"
+      >
         ENTER
       </button>
-      <button v-else-if="gameSituation === 1" @click="enterPiece">
-        ENTER
-      </button>
-      <button v-else-if="gameSituation === 2" @click="resetGame">
-        RESET
-      </button>
-      <button v-else>
-        ENTER
-      </button>
-      <button v-if="gameSituation === 1 && lastCircle !== null" @click="gameSet">
+      <button v-else-if="gameSituation === 1" @click="enterPiece">ENTER</button>
+      <button v-else-if="gameSituation === 2" @click="resetGame">RESET</button>
+      <button v-else>ENTER</button>
+      <button
+        v-if="gameSituation === 1 && lastCircle !== null"
+        @click="gameSet"
+      >
         VUARTO
       </button>
-      <button v-else-if="gameSituation !== 0" :class="{transparent: gameSituation === -1}">
+      <button
+        v-else-if="gameSituation !== 0"
+        :class="{ transparent: gameSituation === -1 }"
+      >
         VUARTO
       </button>
     </div>
@@ -91,10 +107,10 @@ export default {
       ],
 
       message: "STARTを押すとゲームが開始されます",
-      gameSituation: 0,//０が初期、１がコマ、−１がマス、２が終了時
+      gameSituation: 0, //０が初期、１がコマ、−１がマス、２が終了時
       pieceId: null,
       lastCircle: null,
-      boardData: ["", "", "", "",],
+      boardData: ["", "", "", ""],
     };
   },
   methods: {
@@ -106,9 +122,12 @@ export default {
       this.createBoardData();
       const first = Math.floor(Math.random() * 2);
       const second = first === 0 ? 1 : 0;
-      this.playerList[first].turn = true;
-      this.message = this.playerList[first].name + "さんが先攻です\n"
-                     + this.playerList[second].name + "さんは渡すコマを選んでください";
+      this.playerList[second].turn = true;
+      this.message =
+        this.playerList[first].name +
+        "さんが先攻です\n" +
+        this.playerList[second].name +
+        "さんは渡すコマを選んでください";
     },
     enterPiece() {
       for (let i in this.playerList) {
@@ -116,9 +135,11 @@ export default {
       }
       this.gameSituation = -1;
       if (this.playerList[0].turn) {
-        this.message = this.playerList[0].name + "さんは置くマスを選んでください";
+        this.message =
+          this.playerList[0].name + "さんは置くマスを選んでください";
       } else {
-        this.message = this.playerList[1].name + "さんは置くマスを選んでください";
+        this.message =
+          this.playerList[1].name + "さんは置くマスを選んでください";
       }
     },
     missPiece() {
@@ -131,9 +152,11 @@ export default {
       this.gameSituation = 1;
       this.pieceId = null;
       if (this.playerList[0].turn) {
-        this.message = this.playerList[0].name + "さんは渡すコマを選んでください";
+        this.message =
+          this.playerList[0].name + "さんは渡すコマを選んでください";
       } else {
-        this.message = this.playerList[1].name + "さんは渡すコマを選んでください";
+        this.message =
+          this.playerList[1].name + "さんは渡すコマを選んでください";
       }
     },
     selectPiece(index) {
@@ -151,15 +174,15 @@ export default {
       let enemy = now === 0 ? 1 : 0;
       this.gameSituation = 2;
       if (await this.judge()) {
-          this.message = this.playerList[now].name + "さんの勝利です";
+        this.message = this.playerList[now].name + "さんの勝利です";
       } else {
-          this.message = this.playerList[enemy].name + "さんの勝利です";
-          for (let i in this.playerList) {
-            this.playerList[i].turn = !this.playerList[i].turn;
-          }
+        this.message = this.playerList[enemy].name + "さんの勝利です";
+        for (let i in this.playerList) {
+          this.playerList[i].turn = !this.playerList[i].turn;
+        }
       }
     },
-    resetGame () {
+    resetGame() {
       this.gameSituation = 0;
       this.message = "STARTを押すとゲームが開始されます";
       for (let i in this.playerList) {
@@ -170,7 +193,7 @@ export default {
     },
     async createBoardData() {
       for (let x in this.boardData) {
-        this.boardData[x] = await ["", "", "", "",];
+        this.boardData[x] = await ["", "", "", ""];
       }
       for (let x in this.boardData) {
         for (let y in this.boardData[x]) {
@@ -179,13 +202,13 @@ export default {
             shape: "",
             number: null,
             language: "",
-          }
+          };
         }
       }
     },
     async setBoardData(key, piece) {
       let x = await Math.floor((Number(key) - 1) / 4);
-      let y = await (Number(key) - 1) % 4;
+      let y = (await (Number(key) - 1)) % 4;
       this.boardData[x][y].color = piece.color;
       this.boardData[x][y].shape = piece.shape;
       this.boardData[x][y].number = piece.number;
@@ -206,10 +229,10 @@ export default {
 
 <style scoped lang="scss">
 .title {
-    width: 100%;
-    font-size: 32px;
-    color: rgb(139, 91, 0);
-    text-align: center;
+  width: 100%;
+  font-size: 32px;
+  color: rgb(139, 91, 0);
+  text-align: center;
 }
 
 .header {
