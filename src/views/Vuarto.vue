@@ -239,38 +239,36 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  .player {
+    width: 304px;
+    height: 32px;
+    background: rgb(226, 226, 226);
+    display: flex;
+    align-items: center;
+    .turn-lamp {
+      font-size: 20px;
+      height: 30px;
+      text-align: center;
+    }
 
-.player {
-  width: 304px;
-  height: 32px;
-  background: rgb(226, 226, 226);
-  display: flex;
-  align-items: center;
-}
+    .on {
+      color: rgb(44, 197, 44);
+    }
 
-.left {
-  justify-content: flex-end;
-  border-radius: 16px 0px 0px 16px;
-}
+    .off {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
 
-.right {
-  justify-content: flex-start;
-  border-radius: 0px 16px 16px 0px;
-}
+  .left {
+    justify-content: flex-end;
+    border-radius: 16px 0px 0px 16px;
+  }
 
-.turn-lamp {
-  font-size: 20px;
-  height: 30px;
-  text-align: center;
-}
-
-.on {
-  color: rgb(44, 197, 44);
-}
-
-.off {
-  color: rgba(0, 0, 0, 0.6);
+  .right {
+    justify-content: flex-start;
+    border-radius: 0px 16px 16px 0px;
+  }
 }
 
 .message {
@@ -287,16 +285,15 @@ export default {
   width: 100%;
   text-align: center;
   margin-top: 8px;
-}
+  button {
+    font-size: 20px;
+    border-radius: 5%;
+    margin: 0px 16px;
+  }
 
-button {
-  font-size: 20px;
-  border-radius: 5%;
-  margin: 0px 16px;
-}
-
-.transparent {
-  opacity: 0.3;
+  .transparent {
+    opacity: 0.3;
+  }
 }
 
 .main {
@@ -304,37 +301,36 @@ button {
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 16px;
-}
-
-.board {
-  width: 360px;
-  height: 360px;
-  background: rgba(233, 171, 55, 0.5);
-  // border: 1px solid black;
-  border-right: 8px solid rgba(77, 61, 11, 0.6);
-  border-bottom: 8px solid rgba(77, 61, 11, 0.6);
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.piece-desk {
-  width: 224px;
-  height: 360px;
-  margin-left: 8px;
-  &-small {
-    width: 100%;
-    height: 74px;
-    background: rgb(240, 240, 240);
+  .board {
+    width: 360px;
+    height: 360px;
+    background: rgba(233, 171, 55, 0.5);
+    // border: 1px solid black;
+    border-right: 8px solid rgba(77, 61, 11, 0.6);
+    border-bottom: 8px solid rgba(77, 61, 11, 0.6);
+    border-radius: 8px;
     display: flex;
     justify-content: space-around;
-    align-items: center;
     flex-wrap: wrap;
-    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    margin-top: 16px;
-    padding: 2px;
+  }
+
+  .piece-desk {
+    width: 224px;
+    height: 360px;
+    margin-left: 8px;
+    &-small {
+      width: 100%;
+      height: 74px;
+      background: rgb(240, 240, 240);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      margin-top: 16px;
+      padding: 2px;
+    }
   }
 }
 </style>

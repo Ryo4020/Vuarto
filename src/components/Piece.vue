@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style scopped>
+<style scopped lang="scss">
 .piece {
   font-size: 24px;
   width: 52px;
