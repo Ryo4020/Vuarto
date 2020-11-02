@@ -21,24 +21,24 @@ export default {
   props: ["i", "selectedPiece", "situation"],
   data() {
     return {
-      pieceList: PIECE_LIST,
-      used: false,
-      usedPotionId: null,
+      pieceList: PIECE_LIST, //16種のコマ
+      used: false, //マスに置かれてないならfalse
+      usedPotionId: null, //渡されたコマ
     };
   },
   watch: {
     situation() {
       switch (this.situation) {
-        case 0:
+        case 0: //初期化
           this.used = false;
           this.usedPotionId = null;
           break;
-        case 1:
+        case 1: //マスに置かれた時
           if (this.usedPotionId === this.i) {
             this.used = !this.used;
           }
           break;
-        case -1:
+        case -1: //渡すの確定したらそのコマを記憶
           this.usedPotionId = this.selectedPiece;
           break;
       }

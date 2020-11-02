@@ -108,15 +108,16 @@ export default {
 
       message: "STARTを押すとゲームが開始されます",
       gameSituation: 0, //０が初期、１がコマ、−１がマス、２が終了時
-      pieceId: null,
-      lastCircle: null,
-      boardData: ["", "", "", ""],
+      pieceId: null, //選択されたコマの番号
+      lastCircle: null, //最後にコマが置かれたマス
+      boardData: ["", "", "", ""], //盤面情報の入った二次元配列
     };
   },
   methods: {
     changeName(index, value) {
       this.playerList[index - 1].name = value;
     },
+    //先攻はランダムでゲームを開始
     gameStart() {
       this.gameSituation = 1;
       this.createBoardData();
@@ -129,6 +130,7 @@ export default {
         this.playerList[second].name +
         "さんは渡すコマを選んでください";
     },
+    //コマが確定し相手が置くターンへ
     enterPiece() {
       for (let i in this.playerList) {
         this.playerList[i].turn = !this.playerList[i].turn;
@@ -142,9 +144,11 @@ export default {
           this.playerList[1].name + "さんは置くマスを選んでください";
       }
     },
+    //コマ選択してないというアラート出す
     missPiece() {
       alert("コマを選んでください");
     },
+    //コマをマスに置き、コマ選択場面へ
     selectCircle(key, piece) {
       this.lastCircle = key;
       this.setBoardData(key, piece);
@@ -159,6 +163,7 @@ export default {
           this.playerList[1].name + "さんは渡すコマを選んでください";
       }
     },
+    //コマクリック時
     selectPiece(index) {
       if (this.pieceId === index) {
         this.pieceId = null;
@@ -166,9 +171,11 @@ export default {
         this.pieceId = index;
       }
     },
+    //勝利条件の判定
     judge() {
       return judgeResult(this.lastCircle, this.boardData);
     },
+    //勝利条件満たしてたら押した人の勝ちで、満たしてないなら敵の勝ち
     async gameSet() {
       let now = this.playerList.findIndex(({ turn }) => turn === true);
       let enemy = now === 0 ? 1 : 0;
@@ -182,6 +189,7 @@ export default {
         }
       }
     },
+    //全てリセット
     resetGame() {
       this.gameSituation = 0;
       this.message = "STARTを押すとゲームが開始されます";
@@ -191,6 +199,7 @@ export default {
       this.pieceId = null;
       this.lastCircle = null;
     },
+    //二次元配列作成
     async createBoardData() {
       for (let x in this.boardData) {
         this.boardData[x] = await ["", "", "", ""];
@@ -206,6 +215,7 @@ export default {
         }
       }
     },
+    //二元配列の書き換え
     async setBoardData(key, piece) {
       let x = await Math.floor((Number(key) - 1) / 4);
       let y = (await (Number(key) - 1)) % 4;

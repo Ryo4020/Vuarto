@@ -22,13 +22,14 @@ export default {
   props: ["circleId", "i", "situation"],
   data() {
     return {
-      getPieceClass: "",
-      getPieceDisplay: "",
-      pieceList: PIECE_LIST,
-      access: true,
+      getPieceClass: "", //置かれたコマのクラスリスト
+      getPieceDisplay: "", //置かれたマスの文字
+      pieceList: PIECE_LIST, //16種のコマ
+      access: true, //まだコマがなければtrue
     };
   },
   watch: {
+    //盤面を初期化
     situation() {
       if (this.situation === 0) {
         this.getPieceClass = "";
@@ -38,6 +39,7 @@ export default {
     },
   },
   methods: {
+    //コマをマスに置く
     selectCircle() {
       this.access = !this.access;
       this.getPieceClass = [
