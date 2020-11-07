@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style scopped lang="scss">
+<style scoped lang="scss">
 .piece {
   font-size: 24px;
   width: 52px;
